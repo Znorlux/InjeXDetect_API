@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Human Behavior Prediction</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Human Behavior Prediction</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input type="file" id="file" name="file" accept=".csv" required />
+      <button type="button" onclick="submitForm()">Upload and Predict</button>
+    </form>
+    <p id="result">Prediction result will appear here.</p>
+
+    <script>
+      async function submitForm() {
+        const formData = new FormData(document.getElementById("uploadForm"));
+        const response = await fetch("/predict", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await response.json();
+        document.getElementById("result").innerText = data.result;
+      }
+    </script>
+  </body>
+</html>
