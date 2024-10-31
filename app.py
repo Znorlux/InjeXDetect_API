@@ -4,6 +4,9 @@ import numpy as np
 import onnxruntime as ort
 import os
 
+# Crear el directorio de "uploads" si no existe
+os.makedirs("uploads", exist_ok=True)
+
 app = Flask(__name__)
 
 # Cargar el modelo ONNX
@@ -55,5 +58,4 @@ def predict():
     return jsonify({"result": result})
 
 if __name__ == '__main__':
-    os.makedirs("uploads", exist_ok=True)
     app.run(host='0.0.0.0', port=5000)
